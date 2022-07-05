@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -Dspring.profiles.active=prod -jar target/mumia-app.jar
+web: java -Dserver.port=$PORT -Dspring.profiles.active=prod -jar target/mumia-app-0.0.1-SNAPSHOT.jar
