@@ -1,28 +1,59 @@
 package br.com.mumia.model;
 
+import java.math.BigDecimal;
 import java.util.Objects;
 
-public class Produto {
-	private int id;
-	private int codigo_barras;
-	private String descricao;
-	private String categoria;
-	private float preco;
-	private int quantidade;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
-	public int getId() {
+@Entity
+@Table(name = "PRODUTO")
+public class Produto {
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ID")
+	private Long id;
+
+	@Column(name = "CODIGO_BARRAS")
+	@NotNull(message = "O CODIGO é obrigatorio.")
+	private Integer codigo_barras;
+
+	@Column(name = "DESCRICAO")
+	@NotEmpty(message = "A descrição  é obrigatorio.")
+	private String descricao;
+
+	@Column(name = "CATEGORIA")
+	@NotEmpty(message = "A CATEGORIA é obrigatorio.")
+	private String categoria;
+
+	@Column(name = "PRECO")
+	@NotNull(message = "O PREÇO é obrigatorio.")
+	private BigDecimal preco;
+
+	@Column(name = "QUANTIDADE")
+	@NotNull(message = "A QUANTIDADE é obrigatorio.")
+	private Integer quantidade;
+
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
-	public int getCodigo_barras() {
+	public Integer getCodigo_barras() {
 		return codigo_barras;
 	}
 
-	public void setCodigo_barras(int codigo_barras) {
+	public void setCodigo_barras(Integer codigo_barras) {
 		this.codigo_barras = codigo_barras;
 	}
 
@@ -42,25 +73,25 @@ public class Produto {
 		this.categoria = categoria;
 	}
 
-	public float getPreco() {
+	public BigDecimal getPreco() {
 		return preco;
 	}
 
-	public void setPreco(float preco) {
+	public void setPreco(BigDecimal preco) {
 		this.preco = preco;
 	}
 
-	public int getQuantidade() {
+	public Integer getQuantidade() {
 		return quantidade;
 	}
 
-	public void setQuantidade(int quantidade) {
+	public void setQuantidade(Integer quantidade) {
 		this.quantidade = quantidade;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(categoria, codigo_barras, descricao, id, preco, quantidade);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -72,9 +103,11 @@ public class Produto {
 		if (getClass() != obj.getClass())
 			return false;
 		Produto other = (Produto) obj;
-		return Objects.equals(categoria, other.categoria) && codigo_barras == other.codigo_barras
-				&& Objects.equals(descricao, other.descricao) && id == other.id
-				&& Float.floatToIntBits(preco) == Float.floatToIntBits(other.preco) && quantidade == other.quantidade;
+		return Objects.equals(id, other.id);
 	}
+
+	
+
+	
 
 }
