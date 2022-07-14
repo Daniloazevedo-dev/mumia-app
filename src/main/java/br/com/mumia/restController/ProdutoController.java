@@ -1,14 +1,17 @@
-package br.com.mumia.controller;
+package br.com.mumia.restController;
+
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.http.HttpStatus;
+
 import br.com.mumia.model.Produto;
 import br.com.mumia.service.ProdutoService;
 
@@ -28,11 +31,21 @@ public class ProdutoController {
 	public Produto updateProduto(@RequestBody Produto produto) {
 		return produtoService.updateProduto(produto);
 	}
+
 	@DeleteMapping("/delete")
-	@ResponseStatus(HttpStatus.OK)
 	public void deleteProduto(@RequestBody Produto produto) {
-		 produtoService.deleteProduto(produto);
+		produtoService.deleteProduto(produto);
+	}
+	
+	@GetMapping("/buscar/{id}")
+	public Produto buscarProduto(@PathVariable Long id) {
+		return produtoService.buscarProduto(id);
 		
+	}
+	
+	@GetMapping("/buscar-todos")
+	public List<Produto> buscarTodos() {
+		return produtoService.buscarTodos();
 	}
 
 }
