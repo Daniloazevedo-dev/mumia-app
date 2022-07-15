@@ -9,7 +9,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -26,11 +25,9 @@ public class Produto {
 	private Integer codigo_barras;
 
 	@Column(name = "DESCRICAO")
-	@NotEmpty(message = "A descrição  é obrigatorio.")
 	private String descricao;
 
 	@Column(name = "CATEGORIA")
-	@NotEmpty(message = "A CATEGORIA é obrigatorio.")
 	private String categoria;
 
 	@Column(name = "PRECO")
