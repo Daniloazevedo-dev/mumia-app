@@ -22,7 +22,7 @@ public class Produto {
 
 	@Column(name = "CODIGO_BARRAS")
 	@NotNull(message = "O CODIGO é obrigatorio.")
-	private Integer codigo_barras;
+	private Long codigoBarras;
 
 	@Column(name = "DESCRICAO")
 	private String descricao;
@@ -46,12 +46,12 @@ public class Produto {
 		this.id = id;
 	}
 
-	public Integer getCodigo_barras() {
-		return codigo_barras;
+	public Long getCodigoBarras() {
+		return codigoBarras;
 	}
 
-	public void setCodigo_barras(Integer codigo_barras) {
-		this.codigo_barras = codigo_barras;
+	public void setCodigo_barras(Long codigoBarras) {
+		this.codigoBarras = codigoBarras;
 	}
 
 	public String getDescricao() {
