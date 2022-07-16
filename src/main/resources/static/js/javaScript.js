@@ -53,7 +53,7 @@ function buscarTodosProdutos() {
 
 	$.ajax({
 		type: "GET",
-		url: "http://localhost:8080/produto/buscar-todos",
+		url: "https://mumia-app.herokuapp.com/produto/buscar-todos",
 		async: true,
 		contentType: "application/json; charset=utf-8",
 	}).then(sucesso, falha);
