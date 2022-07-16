@@ -20,13 +20,14 @@
 	<h1>Cadastro de Produto</h1>
 	
 	<div class="container">	
-		 <form name="form" id="form">
+		 <form action="" class="was-validated" method="post" name="form" id="form">
 		 	<div class="row m-3">
 			 	<div class="col-2 text-end" >
 					<label for="descricao" class="col-form-label">Descrição:</label> 
 				</div>
 					<div class="col-7 p-0 " >
 					<input id="descricao" class="form-control" type="text" name="descicao" placeholder="Insira descriçâo do produto.">
+	
 				</div>
 			</div>
 			<div class="row m-3">
@@ -43,7 +44,7 @@
 					<label for="preco" class="col-form-label ">Preço <span>*</span>:</label> 
 				</div>
 				<div class="col-7 p-0 " >
-					<input id="preco" class="form-control" type="text" name="preco" placeholder="Insira o preço do produto.">
+					<input id="preco" class="form-control" type="number" name="preco" placeholder="Insira o preço do produto." required>
 				</div>
 				</div>	
 			<div class="row m-3">
@@ -51,7 +52,7 @@
 						<label for="quantidade" class="col-form-label">Quantidade <span>*</span>:</label> 
 					</div>
 					<div class="col-7 p-0 " >
-						<input id="quantidade" class="form-control" type="text" name="quantidade" placeholder="Insira a quantidade de produtos.">
+						<input id="quantidade" class="form-control" type="number" name="quantidade" placeholder="Insira a quantidade de produtos." required>
 					</div>
 			</div>
 			<div class="row m-3">
@@ -59,7 +60,7 @@
 					<label for="codigo-barra" class="col-form-label">Codigo-Barra <span>*</span>:</label> 
 					</div>
 					<div class="col-7 p-0 " >
-					<input id="codigo-barra" class="form-control" type="text" name="codigo-barra" placeholder="Insira o codigo de barras do produto.">
+					<input id="codigoBarra" class="form-control" type="number" name="codigoBarra" placeholder="Insira o codigo de barras do produto." required>
 				</div>
 			</div>
 		<div class="container m-3">
