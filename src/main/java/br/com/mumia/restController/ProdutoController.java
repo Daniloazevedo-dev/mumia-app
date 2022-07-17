@@ -32,9 +32,9 @@ public class ProdutoController {
 		return produtoService.updateProduto(produto);
 	}
 
-	@DeleteMapping("/delete")
-	public void deleteProduto(@RequestBody Produto produto) {
-		produtoService.deleteProduto(produto);
+	@DeleteMapping("/delete/{id}")
+	public void deleteProduto(@PathVariable Long id) {
+		produtoService.deleteProduto(id);
 	}
 	
 	@GetMapping("/buscar/{id}")

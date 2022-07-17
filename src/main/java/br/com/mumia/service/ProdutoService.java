@@ -22,8 +22,8 @@ public class ProdutoService {
 		return produtoRepository.save(produto);
 	}
 
-	public void deleteProduto(Produto produto) {
-		produtoRepository.delete(produto);
+	public void deleteProduto(Long id) {
+		produtoRepository.deleteById(id);
 	}
 
 	public Produto buscarProduto(Long id) {
