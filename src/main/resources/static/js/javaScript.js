@@ -1,16 +1,16 @@
-function salvar (){
-	
-	if(idProduto.value === '' || idProduto.value === null){
-		
-		
-		
+function salvar() {
+
+	if (idProduto.value === '' || idProduto.value === null) {
+
+
+
 		inserirProduto();
-		
-	}else {
-		
+
+	} else {
+
 		atualizarProduto();
 	}
-}  
+}
 
 function inserirProduto() {
 	event.preventDefault();
@@ -36,7 +36,17 @@ function inserirProduto() {
 		function sucesso(data) {
 
 			buscarTodosProdutos();
+			
+			idProduto.value = "";
+			descricao.value = "";
+			preco.value = "";
+			quantidade.value = "";
+			categoria.value = "";
+			codigoBarra.value = "";
+			
 			alert('Produto inserido com sucesso. ')
+
+			
 		}
 
 		function falha(data) {
@@ -50,31 +60,31 @@ function inserirProduto() {
 }
 
 function updateProduto() {
-	
+
 	$(function() {
-		
+
 		$(document).on('click', '#editar', function(e) {
 			e.preventDefault;
 			var id = $(this).parent().parent().find('td').data('id');
-			
-			
+
+
 			buscarProduto(id);
-			
-			
+
+
 
 		});
 	});
-	
+
 }
 
 function atualizarProduto() {
-	
+
 	event.preventDefault();
 
 	if (form.checkValidity() === true) {
 
 		var data = {
-			
+
 			"id": idProduto.value,
 			"codigoBarras": codigoBarra.value,
 			"descricao": descricao.value,
@@ -94,6 +104,14 @@ function atualizarProduto() {
 		function sucesso(data) {
 
 			buscarTodosProdutos();
+			
+			idProduto.value = "";
+			descricao.value = "";
+			preco.value = "";
+			quantidade.value = "";
+			categoria.value = "";
+			codigoBarra.value = "";
+			
 			alert('Produto Atualizado com sucesso. ')
 		}
 
@@ -114,7 +132,7 @@ function deleteProduto() {
 		$(document).on('click', '#excluir', function(e) {
 			e.preventDefault;
 			var id = $(this).parent().parent().find('td').data('id');
-			
+
 			deletarProduto(id);
 
 		});
@@ -124,7 +142,7 @@ function deleteProduto() {
 }
 
 function deletarProduto(id) {
-	
+
 	$.ajax({
 		type: "DELETE",
 		url: url + "produto/delete/" + id,
@@ -133,11 +151,11 @@ function deletarProduto(id) {
 	}).then(sucesso, falha);
 
 	function sucesso(data) {
-		
+
 		buscarTodosProdutos()
-	
-	alert('Produto deletado com sucesso.');
-	
+
+		alert('Produto deletado com sucesso.');
+
 	}
 
 	function falha(data) {
@@ -149,7 +167,7 @@ function deletarProduto(id) {
 
 
 function buscarProduto(id) {
-	
+
 	$.ajax({
 		type: "GET",
 		url: url + "produto/buscar/" + id,
@@ -158,21 +176,21 @@ function buscarProduto(id) {
 	}).then(sucesso, falha);
 
 	function sucesso(data) {
-	
+
 		idProduto.value = data.id;
 		descricao.value = data.descricao;
 		preco.value = data.preco;
 		quantidade.value = data.quantidade;
 		categoria.value = data.categoria;
 		codigoBarra.value = data.codigoBarras;
-		
-	
+
+
 	}
 
 	function falha(data) {
 		alert("Erro ao Buscar Produto");
 	}
-	
+
 }
 
 function buscarTodosProdutos() {
