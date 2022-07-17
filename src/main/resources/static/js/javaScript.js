@@ -27,7 +27,7 @@ function inserirProduto() {
 
 		$.ajax({
 			type: "POST",
-			url: "https://mumia-app.herokuapp.com/produto/inserir",
+			url: url + "produto/inserir",
 			async: true,
 			contentType: "application/json; charset=utf-8",
 			data: JSON.stringify(data)
@@ -85,7 +85,7 @@ function atualizarProduto() {
 
 		$.ajax({
 			type: "PUT",
-			url: "https://mumia-app.herokuapp.com/produto/update",
+			url: url + "produto/update",
 			async: true,
 			contentType: "application/json; charset=utf-8",
 			data: JSON.stringify(data)
@@ -127,7 +127,7 @@ function deletarProduto(id) {
 	
 	$.ajax({
 		type: "DELETE",
-		url: "https://mumia-app.herokuapp.com/produto/delete/" + id,
+		url: url + "produto/delete/" + id,
 		async: true,
 		contentType: "application/json; charset=utf-8",
 	}).then(sucesso, falha);
@@ -152,7 +152,7 @@ function buscarProduto(id) {
 	
 	$.ajax({
 		type: "GET",
-		url: "https://mumia-app.herokuapp.com/produto/buscar/" + id,
+		url: url + "produto/buscar/" + id,
 		async: true,
 		contentType: "application/json; charset=utf-8",
 	}).then(sucesso, falha);
@@ -179,7 +179,7 @@ function buscarTodosProdutos() {
 
 	$.ajax({
 		type: "GET",
-		url: "https://mumia-app.herokuapp.com/buscar-todos",
+		url: url + "produto/buscar-todos",
 		async: true,
 		contentType: "application/json; charset=utf-8",
 	}).then(sucesso, falha);
