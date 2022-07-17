@@ -21,7 +21,7 @@ function inserirProduto() {
 			"codigoBarras": codigoBarra.value,
 			"descricao": descricao.value,
 			"categoria": categoria.value,
-			"preco": preco.value,
+			"preco": preco.value.replace(".","").replace(",",""),
 			"quantidade": quantidade.value
 		}
 
@@ -89,7 +89,7 @@ function atualizarProduto() {
 			"codigoBarras": codigoBarra.value,
 			"descricao": descricao.value,
 			"categoria": categoria.value,
-			"preco": preco.value,
+			"preco": preco.value.replace(".","").replace(",",""),
 			"quantidade": quantidade.value
 		}
 
