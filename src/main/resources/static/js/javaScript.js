@@ -179,7 +179,7 @@ function buscarTodosProdutos() {
 
 	$.ajax({
 		type: "GET",
-		url: "https://mumia-app.herokuapp.com/produto/buscar-todos",
+		url: "https://mumia-app.herokuapp.com/buscar-todos",
 		async: true,
 		contentType: "application/json; charset=utf-8",
 	}).then(sucesso, falha);
@@ -190,7 +190,7 @@ function buscarTodosProdutos() {
 
 		for (var i = 0; i < data.length; i++) {
 
-			linhaTabela = linhaTabela + '<tr><td data-id="' + data[i].id + '">' + data[i].id + '</td><td data-nome="' + data[i].descricao + '">' + data[i].descricao + '</td><td data-nome="' + data[i].categoria + '"> ' + data[i].categoria + ' </td><td> ' + data[i].quantidade + ' </td><td> ' + data[i].preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + ' </td><td> ' + data[i].codigoBarras + ' </td><td><button id="excluir" title="Excluir" class="btn btn-dark"><i class="bi bi-trash-fill"></i> Excluir</button><button id="editar" title="Editar" class="btn btn-secondary mx-1"><i class="bi bi-pencil-fill"></i> Editar</button></td></tr>'
+			linhaTabela = linhaTabela + '<tr><td data-id="' + data[i].id + '">' + data[i].id + '</td><td data-nome="' + data[i].descricao + '">' + data[i].descricao + '</td><td data-nome="' + data[i].categoria + '"> ' + data[i].categoria + ' </td><td> ' + data[i].quantidade + ' </td><td> ' + data[i].preco + ' </td><td> ' + data[i].codigoBarras + ' </td><td><button id="excluir" title="Excluir" class="btn btn-dark"><i class="bi bi-trash-fill"></i> Excluir</button><button id="editar" title="Editar" class="btn btn-secondary mx-1"><i class="bi bi-pencil-fill"></i> Editar</button></td></tr>'
 
 			listProduto.innerHTML = linhaTabela
 
