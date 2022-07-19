@@ -14,10 +14,11 @@ public class ProdutoService {
 	@Autowired
 	private ProdutoRepository produtoRepository;
 
+		// Retorna os produto inserido no banco 
 	public Produto inserirProduto(Produto produto) {
 		return produtoRepository.save(produto);
 	}
-
+		
 	public Produto updateProduto(Produto produto) {
 		return produtoRepository.save(produto);
 	}
@@ -34,15 +35,19 @@ public class ProdutoService {
 		return (List<Produto>) produtoRepository.findAll();
 	}
 
-	public boolean buscarCodigoBarras(Long codigoBarras) {
+	public boolean buscarCodigoBarras(Long id, Long codigoBarras) {
 
-		Produto produto = produtoRepository.findByCodigoBarras(codigoBarras);
+        Produto produto = produtoRepository.findByCodigoBarras(codigoBarras);
 
-		if (produto == null) {
-			return false;
-		}
-		return true;
+        if (produto == null) {
+            return false;
+        }
 
-	}
+        if(produto.getId() == id && produto.getCodigoBarras().equals(codigoBarras)) {
+            return false;
+        }
+
+        return true;
+    }
 
 }

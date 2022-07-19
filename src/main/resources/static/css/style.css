@@ -7,7 +7,7 @@ span {
 	height: 50px;
 	line-height: 50px;
 	text-align: center;
-	/* pura mágica */
+	
 	position: absolute;
 	top: 40%; /* posiciona na metade da tela */
 	margin-top: -25px; /* e retrocede metade da altura */
