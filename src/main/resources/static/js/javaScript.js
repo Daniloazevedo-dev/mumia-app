@@ -33,33 +33,44 @@ function inserirProduto() {
 			url: url + "produto/inserir",
 			async: true,
 			contentType: "application/json; charset=utf-8",
-			data: JSON.stringify(data)
-		}).then(sucesso, falha);
+			data: JSON.stringify(data),
+			beforeSend: function() {
+				spinner.removeAttribute('hidden');
+			},
 
 
-
-		function sucesso(data) {
-			buscarTodosProdutos();
-
-			idProduto.value = "";
-			descricao.value = "";
-			preco.value = "";
-			quantidade.value = "";
-			categoria.value = "";
-			codigoBarra.value = "";
-
-			alert('Produto inserido com sucesso. ')
+			success: function() {
+				spinner.setAttribute('hidden', 'hidden');
 
 
-		}
+				idProduto.value = "";
+				descricao.value = "";
+				preco.value = "";
+				quantidade.value = "";
+				categoria.value = "";
+				codigoBarra.value = "";
 
-		function falha(data) {
-			alert("Erro ao inserir Produtos");
-		}
+				alert('Produto inserido com sucesso. ')
 
+
+				buscarTodosProdutos();
+
+
+			},
+
+
+			error: function() {
+				spinner.setAttribute('hidden', 'hidden');
+
+
+				alert("Erro ao inserido Produto");
+
+			}
+
+
+		});
 
 	}
-
 }
 
 function updateProduto() {
@@ -87,7 +98,6 @@ function atualizarProduto() {
 	if (form.checkValidity() === true) {
 
 		var data = {
-
 			"id": idProduto.value,
 			"codigoBarras": codigoBarra.value,
 			"descricao": descricao.value,
@@ -96,40 +106,53 @@ function atualizarProduto() {
 			"quantidade": quantidade.value
 		}
 
+
 		$.ajax({
 			type: "PUT",
 			url: url + "produto/update",
 			async: true,
 			contentType: "application/json; charset=utf-8",
-			data: JSON.stringify(data)
-		}).then(sucesso, falha);
+			data: JSON.stringify(data),
+			beforeSend: function() {
 
-		function sucesso(data) {
-
-			buscarTodosProdutos();
-
+				spinner.removeAttribute('hidden');
+			},
 
 
-			idProduto.value = "";
-			descricao.value = "";
-			preco.value = "";
-			quantidade.value = "";
-			categoria.value = "";
-			codigoBarra.value = "";
+			success: function() {
 
-			alert('Produto Atualizado com sucesso. ')
-		}
+				spinner.setAttribute('hidden', 'hidden');
+				buscarTodosProdutos();
 
-		function falha(data) {
-			alert("Erro ao Atualizar Produto.");
-		}
+
+				idProduto.value = "";
+				descricao.value = "";
+				preco.value = "";
+				quantidade.value = "";
+				categoria.value = "";
+				codigoBarra.value = "";
+
+				alert('Produto Atualizado com sucesso. ')
+
+			},
+
+			error: function() {
+				spinner.setAttribute('hidden', 'hidden');
+
+				alert("Erro ao Atualizar Produto.");
+
+			}
+
+
+		});
 
 
 	}
-
-
-
 }
+
+
+
+
 
 function deleteProduto() {
 
@@ -157,12 +180,12 @@ function deletarProduto(id) {
 		beforeSend: function() {
 			spinner.removeAttribute('hidden');
 		},
-		success: function(data) {
+		success: function() {
 			spinner.setAttribute('hidden', 'hidden');
-			
+
 
 			alert('Produto deletado com sucesso');
-			
+
 			buscarTodosProdutos();
 
 
@@ -215,7 +238,7 @@ function buscarProduto(id) {
 }
 
 function buscarTodosProdutos() {
-	console.log('chamou');
+
 	$.ajax({
 		type: "GET",
 		url: url + "produto/buscar-todos",
