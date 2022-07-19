@@ -9,7 +9,10 @@ function salvar() {
 	} else {
 
 		atualizarProduto();
+
 	}
+
+
 }
 
 function inserirProduto() {
@@ -21,7 +24,7 @@ function inserirProduto() {
 			"codigoBarras": codigoBarra.value,
 			"descricao": descricao.value,
 			"categoria": categoria.value,
-			"preco": preco.value.replace(".","").replace(",",""),
+			"preco": preco.value.replace(".", "").replace(",", ""),
 			"quantidade": quantidade.value
 		}
 
@@ -33,20 +36,21 @@ function inserirProduto() {
 			data: JSON.stringify(data)
 		}).then(sucesso, falha);
 
-		function sucesso(data) {
 
+
+		function sucesso(data) {
 			buscarTodosProdutos();
-			
+
 			idProduto.value = "";
 			descricao.value = "";
 			preco.value = "";
 			quantidade.value = "";
 			categoria.value = "";
 			codigoBarra.value = "";
-			
+
 			alert('Produto inserido com sucesso. ')
 
-			
+
 		}
 
 		function falha(data) {
@@ -56,7 +60,6 @@ function inserirProduto() {
 
 	}
 
-	buscarTodosProdutos();
 }
 
 function updateProduto() {
@@ -89,7 +92,7 @@ function atualizarProduto() {
 			"codigoBarras": codigoBarra.value,
 			"descricao": descricao.value,
 			"categoria": categoria.value,
-			"preco": preco.value.replace(".","").replace(",",""),
+			"preco": preco.value.replace(".", "").replace(",", ""),
 			"quantidade": quantidade.value
 		}
 
@@ -104,14 +107,16 @@ function atualizarProduto() {
 		function sucesso(data) {
 
 			buscarTodosProdutos();
-			
+
+
+
 			idProduto.value = "";
 			descricao.value = "";
 			preco.value = "";
 			quantidade.value = "";
 			categoria.value = "";
 			codigoBarra.value = "";
-			
+
 			alert('Produto Atualizado com sucesso. ')
 		}
 
@@ -122,7 +127,7 @@ function atualizarProduto() {
 
 	}
 
-	buscarTodosProdutos();
+
 
 }
 
@@ -135,10 +140,11 @@ function deleteProduto() {
 
 			deletarProduto(id);
 
+
 		});
 	});
 
-
+	buscarTodosProdutos();
 }
 
 function deletarProduto(id) {
@@ -148,20 +154,30 @@ function deletarProduto(id) {
 		url: url + "produto/delete/" + id,
 		async: true,
 		contentType: "application/json; charset=utf-8",
-	}).then(sucesso, falha);
+		beforeSend: function() {
+			spinner.removeAttribute('hidden');
+		},
+		success: function(data) {
+			spinner.setAttribute('hidden', 'hidden');
+			
 
-	function sucesso(data) {
+			alert('Produto deletado com sucesso');
+			
+			buscarTodosProdutos();
 
-		buscarTodosProdutos()
 
-		alert('Produto deletado com sucesso.');
+		},
 
-	}
+		error: function() {
+			spinner.setAttribute('hidden', 'hidden');
 
-	function falha(data) {
-		alert("Erro ao Deletar Produto.");
-	}
 
+			alert("Erro ao Buscar Produto");
+
+		}
+
+
+	});
 
 }
 
@@ -173,51 +189,69 @@ function buscarProduto(id) {
 		url: url + "produto/buscar/" + id,
 		async: true,
 		contentType: "application/json; charset=utf-8",
-	}).then(sucesso, falha);
+		beforeSend: function() {
+			spinner.removeAttribute('hidden');
+		},
+		success: function(data) {
+			spinner.setAttribute('hidden', 'hidden');
 
-	function sucesso(data) {
-
-		idProduto.value = data.id;
-		descricao.value = data.descricao;
-		preco.value = data.preco;
-		quantidade.value = data.quantidade;
-		categoria.value = data.categoria;
-		codigoBarra.value = data.codigoBarras;
+			idProduto.value = data.id;
+			descricao.value = data.descricao;
+			preco.value = data.preco;
+			quantidade.value = data.quantidade;
+			categoria.value = data.categoria;
+			codigoBarra.value = data.codigoBarras;
 
 
-	}
+		},
+		error: function() {
+			spinner.setAttribute('hidden', 'hidden');
+			alert("Erro ao Buscar Produto");
 
-	function falha(data) {
-		alert("Erro ao Buscar Produto");
-	}
+		}
+
+	});
 
 }
 
 function buscarTodosProdutos() {
-
+	console.log('chamou');
 	$.ajax({
 		type: "GET",
 		url: url + "produto/buscar-todos",
 		async: true,
 		contentType: "application/json; charset=utf-8",
-	}).then(sucesso, falha);
+		beforeSend: function() {
+			spinner.removeAttribute('hidden');
+		},
+		success: function(data) {
+			spinner.setAttribute('hidden', 'hidden')
+			var linhaTabela = "";
 
-	function sucesso(data) {
+			if (data.length === 0) {
 
-		var linhaTabela = "";
+				listProduto.innerHTML = "<td class='text-end'>Não há dados para serem mostrados.</td>";
 
-		for (var i = 0; i < data.length; i++) {
+			} else {
 
-			linhaTabela = linhaTabela + '<tr><td data-id="' + data[i].id + '">' + data[i].id + '</td><td>' + data[i].descricao + '</td><td> ' + data[i].categoria + ' </td><td> ' + data[i].quantidade + ' </td><td> ' + data[i].preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + ' </td><td> ' + data[i].codigoBarras + ' </td><td><button id="excluir" title="Excluir" class="btn btn-dark" "><i class="bi bi-trash-fill"></i> Excluir</button><button id="editar" title="Editar" class="btn btn-secondary mx-1"><i class="bi bi-pencil-fill"></i> Editar</button></td></tr>'
-			listProduto.innerHTML = linhaTabela
+				for (var i = 0; i < data.length; i++) {
 
+					linhaTabela = linhaTabela + '<tr><td data-id="' + data[i].id + '">' + data[i].id + '</td><td>' + data[i].descricao + '</td><td> ' + data[i].categoria + ' </td><td> ' + data[i].quantidade + ' </td><td> ' + data[i].preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + ' </td><td> ' + data[i].codigoBarras + ' </td><td><button id="excluir" title="Excluir" class="btn btn-dark" "><i class="bi bi-trash-fill"></i> Excluir</button><button id="editar" title="Editar" class="btn btn-secondary mx-1"><i class="bi bi-pencil-fill"></i> Editar</button></td></tr>'
+					listProduto.innerHTML = linhaTabela
+
+				}
+
+
+			}
+
+
+		},
+		error: function() {
+			spinner.setAttribute('hidden', 'hidden')
+			alert("Erro ao Listar Produtos");
 		}
 
-	}
-
-	function falha(data) {
-		alert("Erro ao Listar Produtos");
-	}
+	});
 }
 
 window.onload = function() {
