@@ -9,5 +9,6 @@ import br.com.mumia.model.Produto;
 @Repository
 @RepositoryRestResource(exported = false)
 public interface ProdutoRepository extends CrudRepository<Produto, Long> {
-
+	
+	Produto findByCodigoBarras(Long codigoBarras );
 }

@@ -47,5 +47,11 @@ public class ProdutoController {
 	public List<Produto> buscarTodos() {
 		return produtoService.buscarTodos();
 	}
+	
+	@GetMapping("/buscarCodigoBarras/{codigoBarras}")
+	public boolean buscarCodigoBarras(@PathVariable Long codigoBarras) {
+		return produtoService.buscarCodigoBarras(codigoBarras);
+		
+	}
 
 }

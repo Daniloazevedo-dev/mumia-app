@@ -29,9 +29,20 @@ public class ProdutoService {
 	public Produto buscarProduto(Long id) {
 		return produtoRepository.findById(id).get();
 	}
-	
-	public List<Produto> buscarTodos(){
+
+	public List<Produto> buscarTodos() {
 		return (List<Produto>) produtoRepository.findAll();
+	}
+
+	public boolean buscarCodigoBarras(Long codigoBarras) {
+
+		Produto produto = produtoRepository.findByCodigoBarras(codigoBarras);
+
+		if (produto == null) {
+			return false;
+		}
+		return true;
+
 	}
 
 }

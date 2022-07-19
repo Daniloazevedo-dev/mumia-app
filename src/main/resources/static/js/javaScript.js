@@ -1,76 +1,88 @@
 function salvar() {
 
-	if (idProduto.value === '' || idProduto.value === null) {
-
-
-
-		inserirProduto();
-
-	} else {
-
-		atualizarProduto();
-
-	}
-
-
-}
-
-function inserirProduto() {
 	event.preventDefault();
 
 	if (form.checkValidity() === true) {
 
-		var data = {
-			"codigoBarras": codigoBarra.value,
-			"descricao": descricao.value,
-			"categoria": categoria.value,
-			"preco": preco.value.replace(".", "").replace(",", ""),
-			"quantidade": quantidade.value
-		}
-
 		$.ajax({
-			type: "POST",
-			url: url + "produto/inserir",
+			type: "GET",
+			url: url + "produto/buscarCodigoBarras/" + codigoBarra.value,
 			async: true,
 			contentType: "application/json; charset=utf-8",
-			data: JSON.stringify(data),
 			beforeSend: function() {
 				spinner.removeAttribute('hidden');
 			},
-
-
-			success: function() {
+			success: function(data) {
+				
 				spinner.setAttribute('hidden', 'hidden');
+				
+				if (data === true) {
 
+					alert('Já existe um Produto com essse Codigo de Barras!');
 
-				idProduto.value = "";
-				descricao.value = "";
-				preco.value = "";
-				quantidade.value = "";
-				categoria.value = "";
-				codigoBarra.value = "";
+				} else {
 
-				alert('Produto inserido com sucesso. ')
+					if (idProduto.value === '' || idProduto.value === null) {
 
+						inserirProduto();
 
-				buscarTodosProdutos();
+					} else {
 
+						atualizarProduto();
 
+					}
+				}
 			},
-
-
 			error: function() {
+				
 				spinner.setAttribute('hidden', 'hidden');
-
-
-				alert("Erro ao inserido Produto");
-
+				
+				alert("Erro ao Buscar Produto por Codigo de Barras!");
 			}
-
-
 		});
-
 	}
+}
+
+function inserirProduto() {
+
+	var data = {
+		"codigoBarras": codigoBarra.value,
+		"descricao": descricao.value,
+		"categoria": categoria.value,
+		"preco": preco.value.replace(".", "").replace(",", ""),
+		"quantidade": quantidade.value
+	}
+
+	$.ajax({
+		type: "POST",
+		url: url + "produto/inserir",
+		async: true,
+		contentType: "application/json; charset=utf-8",
+		data: JSON.stringify(data),
+		beforeSend: function() {
+			spinner.removeAttribute('hidden');
+		},
+		success: function() {
+			
+			spinner.setAttribute('hidden', 'hidden');
+
+			idProduto.value = "";
+			descricao.value = "";
+			preco.value = "";
+			quantidade.value = "";
+			categoria.value = "";
+			codigoBarra.value = "";
+
+			alert('Produto inserido com sucesso. ')
+
+			buscarTodosProdutos();
+		},
+		error: function() {
+			spinner.setAttribute('hidden', 'hidden');
+
+			alert("Erro ao inserido Produto");
+		}
+	});
 }
 
 function updateProduto() {
@@ -81,14 +93,9 @@ function updateProduto() {
 			e.preventDefault;
 			var id = $(this).parent().parent().find('td').data('id');
 
-
 			buscarProduto(id);
-
-
-
 		});
 	});
-
 }
 
 function atualizarProduto() {
@@ -105,8 +112,7 @@ function atualizarProduto() {
 			"preco": preco.value.replace(".", "").replace(",", ""),
 			"quantidade": quantidade.value
 		}
-
-
+		
 		$.ajax({
 			type: "PUT",
 			url: url + "produto/update",
@@ -117,13 +123,11 @@ function atualizarProduto() {
 
 				spinner.removeAttribute('hidden');
 			},
-
-
 			success: function() {
 
 				spinner.setAttribute('hidden', 'hidden');
+				
 				buscarTodosProdutos();
-
 
 				idProduto.value = "";
 				descricao.value = "";
@@ -135,24 +139,15 @@ function atualizarProduto() {
 				alert('Produto Atualizado com sucesso. ')
 
 			},
-
 			error: function() {
+				
 				spinner.setAttribute('hidden', 'hidden');
 
 				alert("Erro ao Atualizar Produto.");
-
 			}
-
-
 		});
-
-
 	}
 }
-
-
-
-
 
 function deleteProduto() {
 
@@ -162,8 +157,6 @@ function deleteProduto() {
 			var id = $(this).parent().parent().find('td').data('id');
 
 			deletarProduto(id);
-
-
 		});
 	});
 
@@ -181,29 +174,21 @@ function deletarProduto(id) {
 			spinner.removeAttribute('hidden');
 		},
 		success: function() {
+			
 			spinner.setAttribute('hidden', 'hidden');
-
 
 			alert('Produto deletado com sucesso');
 
 			buscarTodosProdutos();
-
-
 		},
-
 		error: function() {
+			
 			spinner.setAttribute('hidden', 'hidden');
 
-
 			alert("Erro ao Buscar Produto");
-
 		}
-
-
 	});
-
 }
-
 
 function buscarProduto(id) {
 
@@ -216,6 +201,7 @@ function buscarProduto(id) {
 			spinner.removeAttribute('hidden');
 		},
 		success: function(data) {
+
 			spinner.setAttribute('hidden', 'hidden');
 
 			idProduto.value = data.id;
@@ -225,16 +211,14 @@ function buscarProduto(id) {
 			categoria.value = data.categoria;
 			codigoBarra.value = data.codigoBarras;
 
-
 		},
 		error: function() {
+			
 			spinner.setAttribute('hidden', 'hidden');
+			
 			alert("Erro ao Buscar Produto");
-
 		}
-
 	});
-
 }
 
 function buscarTodosProdutos() {
@@ -261,13 +245,8 @@ function buscarTodosProdutos() {
 
 					linhaTabela = linhaTabela + '<tr><td data-id="' + data[i].id + '">' + data[i].id + '</td><td>' + data[i].descricao + '</td><td> ' + data[i].categoria + ' </td><td> ' + data[i].quantidade + ' </td><td> ' + data[i].preco.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' }) + ' </td><td> ' + data[i].codigoBarras + ' </td><td><button id="excluir" title="Excluir" class="btn btn-dark" "><i class="bi bi-trash-fill"></i> Excluir</button><button id="editar" title="Editar" class="btn btn-secondary mx-1"><i class="bi bi-pencil-fill"></i> Editar</button></td></tr>'
 					listProduto.innerHTML = linhaTabela
-
 				}
-
-
 			}
-
-
 		},
 		error: function() {
 			spinner.setAttribute('hidden', 'hidden')
