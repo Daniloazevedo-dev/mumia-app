@@ -52,7 +52,7 @@ function inserirProduto() {
 		"codigoBarras": codigoBarra.value,
 		"descricao": descricao.value,
 		"categoria": categoria.value,
-		"preco": preco.value.replace(".", "").replace(",", ""),
+		"preco": preco.value.replace(".", "").replace(",", "."),
 		"quantidade": quantidade.value
 	}
 
@@ -112,7 +112,7 @@ function atualizarProduto() {
 			"codigoBarras": codigoBarra.value,
 			"descricao": descricao.value,
 			"categoria": categoria.value,
-			"preco": preco.value.replace(".", "").replace(",", ""),
+			"preco": preco.value.replace(".","").replace(",","."),
 			"quantidade": quantidade.value
 		}
 		
@@ -209,7 +209,7 @@ function buscarProduto(id) {
 
 			idProduto.value = data.id;
 			descricao.value = data.descricao;
-			preco.value = data.preco;
+			preco.value = data.preco.toLocaleString('pt-br', { minimumFractionDigits: 2 }) ;
 			quantidade.value = data.quantidade;
 			categoria.value = data.categoria;
 			codigoBarra.value = data.codigoBarras;
@@ -246,7 +246,7 @@ function buscarTodosProdutos() {
 
 				for (var i = 0; i < data.length; i++) {
 
-					linhaTabela = linhaTabela + '<tr><td data-id="' + data[i].id + '">' + data[i].id + '</td><td>' + data[i].descricao + '</td><td> ' + data[i].categoria + ' </td><td> ' + data[i].quantidade + ' </td><td> ' + data[i].preco + ' </td><td> ' + data[i].codigoBarras + ' </td><td><button id="excluir" title="Excluir" class="btn btn-dark" "><i class="bi bi-trash-fill"></i> Excluir</button><button id="editar" title="Editar" class="btn btn-secondary mx-1"><i class="bi bi-pencil-fill"></i> Editar</button></td></tr>'
+					linhaTabela = linhaTabela + '<tr><td data-id="' + data[i].id + '">' + data[i].id + '</td><td>' + data[i].descricao + '</td><td> ' + data[i].categoria + ' </td><td> ' + data[i].quantidade + ' </td><td> ' + data[i].preco.toLocaleString('pt-br', { minimumFractionDigits: 2 }) + ' </td><td> ' + data[i].codigoBarras + ' </td><td><button id="excluir" title="Excluir" class="btn btn-dark" "><i class="bi bi-trash-fill"></i> Excluir</button><button id="editar" title="Editar" class="btn btn-secondary mx-1"><i class="bi bi-pencil-fill"></i> Editar</button></td></tr>'
 					listProduto.innerHTML = linhaTabela
 				}
 			}
